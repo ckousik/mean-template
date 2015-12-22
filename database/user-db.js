@@ -47,7 +47,6 @@ module.exports.login = function(data,callback) {
 			console.log('user found: '+JSON.stringify(user));
 			var hash = hashGen.digest(data.pass+user.salt);
 			if(user.pass == hash){
-				console.log(user.pass +" : "+)
 				var payload = {
 					id: user._id,
 					iss: "mysite",
