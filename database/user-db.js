@@ -41,6 +41,8 @@ module.exports.login = function(data,callback) {
 	User.findOne({username:data.username},function(err,user){
 		if(err){
 			result.error = err;
+			callback(result);
+			return;
 		}else{
 			if(user.pass == hashGen.digest(data.pass+this.salt)){
 				var payload = {
