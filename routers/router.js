@@ -34,9 +34,27 @@ router.post('/register',function(req,res){
 		email:req.body.email,
 		displayName:req.body.email
 	};
-	
+
 	console.log('register request');
 	userDb.register(data,function(result) {
+		res.json(result);
+	});
+});
+
+router.post('/logout',function(req,res){
+	var data = {
+		"token":req.body.token
+	}
+	userDb.logout(data,function(result) {
+		res.json(result);
+	});
+});
+
+router.post('/checktoken',function(req,res) {
+	var data = {
+		"token":req.body.token
+	}
+	userDb.checkToken(data,function(result) {
 		res.json(result);
 	});
 });

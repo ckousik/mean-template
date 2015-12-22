@@ -19,7 +19,7 @@ module.exports.register = function (data,callback) {
 		pass:data.pass,
 		displayName:data.displayName
 	});
-	console.log('new user created');
+	//console.log('new user created');
 	newUser.save(function(err){
 		if(err){
 			result.error = err;
@@ -27,7 +27,7 @@ module.exports.register = function (data,callback) {
 		}else{
 			result.success = true;
 		}
-		console.log('new user saved');
+		//console.log('new user saved');
 		callback(result);
 	});
 
@@ -44,7 +44,7 @@ module.exports.login = function(data,callback) {
 		if(err){
 			result.error = err;
 		}else if(user){
-			console.log('user found: '+JSON.stringify(user));
+			//console.log('user found: '+JSON.stringify(user));
 			var hash = hashGen.digest(data.pass+user.salt);
 			if(user.pass == hash){
 				var payload = {
@@ -90,13 +90,18 @@ module.exports.checkToken = function(data,callback) {
 		error:null
 	};
 
-	if(data.id == null || data.token == null){
+	if(data.token == null){
 		result.error = "null value";
 		callback(result);
 		return;
 	}
-
-	User.findOne({_id:data.id},function(err,user) {
+	var payload = jwtHandler.getPayload(data.token);
+	if(payload==null){
+		result.error = "Invalid token";
+		callback(result);
+		return;
+	}
+	User.findOne({_id:payload.id},function(err,user) {
 		if(err){
 			result.error = err;
 			callback(result);
