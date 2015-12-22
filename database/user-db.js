@@ -23,6 +23,7 @@ module.exports.register = function (data,callback) {
 	newUser.save(function(err){
 		if(err){
 			result.error = err;
+			console.log(err);
 		}else{
 			result.success = true;
 		}
