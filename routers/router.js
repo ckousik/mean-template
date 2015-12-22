@@ -5,15 +5,14 @@ var userDb = require('../database/user-db');
 
 router.use(bodyParser.json());
 
-router.route('/').get(function(req,res) {
-	res.status(404);
-}).post(function(req,res) {
-
+router.get('/',function(req,res) {
+	res.json({"Hello":"world !!"});
 });
 
-router.route('/login').get(function(req,res) {
+router.get('/login',function(req,res) {
 
-}).post(function(req,res) {
+});
+router.post('/login',function(req,res) {
 	var data = {
 		username:req.body.username,
 		pass:req.body.pass
@@ -24,9 +23,10 @@ router.route('/login').get(function(req,res) {
 
 });
 
-router.route('/register').get(function(req,res) {
+router.get('/register',function(req,res) {
 
-}).post(function(req,res){
+});
+router.post('/register',function(req,res){
 	var data = {
 		username:req.body.username,
 		pass:req.body.pass,
