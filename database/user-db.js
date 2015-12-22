@@ -18,12 +18,15 @@ module.exports.register = function (data,callback) {
 		email:data.email,
 		pass:data.pass,
 		displayName:data.displayName
-	}).save(function(err){
+	});
+	console.log('new user created');
+	newUser.save(function(err){
 		if(err){
 			result.error = err;
 		}else{
 			result.success = true;
 		}
+		console.log('new user saved');
 		callback(result);
 	});
 

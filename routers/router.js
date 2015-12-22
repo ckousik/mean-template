@@ -34,7 +34,8 @@ router.post('/register',function(req,res){
 		email:req.body.email,
 		displayName:req.body.email
 	};
-
+	
+	console.log('register request');
 	userDb.register(data,function(result) {
 		res.json(result);
 	});
