@@ -15,3 +15,5 @@ app.use(express.static(__dirname + '/views') );
 
 //mount routers here
 app.use('/',require('./routers/router').router);
+
+httpServer.listen(port);
