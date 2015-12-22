@@ -18,9 +18,7 @@ module.exports.register = function (data,callback) {
 		email:data.email,
 		pass:data.pass,
 		displayName:data.displayName
-	});
-
-	newUser.save(function(err){
+	}).save(function(err){
 		if(err){
 			result.error = err;
 		}else{

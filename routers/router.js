@@ -26,6 +26,7 @@ router.post('/login',function(req,res) {
 router.get('/register',function(req,res) {
 
 });
+
 router.post('/register',function(req,res){
 	var data = {
 		username:req.body.username,
