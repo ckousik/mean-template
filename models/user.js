@@ -23,6 +23,7 @@ UserSchema.pre('save',function(next) {
 	var hashSaltPair = hashGen.getHashed(this.pass);
 	this.pass = hashSaltPair.hash;
 	this.salt = hashSaltPair.salt;
+	next();
 });
 
 UserSchema.method.comparePass = function(password,callback){
