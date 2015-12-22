@@ -41,9 +41,7 @@ module.exports.login = function(data,callback) {
 	User.findOne({username:data.username},function(err,user){
 		if(err){
 			result.error = err;
-			callback(result);
-			return;
-		}else{
+		}else if(user){
 			if(user.pass == hashGen.digest(data.pass+this.salt)){
 				var payload = {
 					id: user._id,
@@ -73,7 +71,7 @@ module.exports.logout = function(data,callback) {
 		User.findOne({_id:payload.id},function(err,user){
 			if(err){
 				result.error = err;
-			}else{
+			}else if(user){
 				user.currentToken = null;
 				result.success = true;
 			}
@@ -98,7 +96,7 @@ module.exports.checkToken = function(data,callback) {
 		if(err){
 			result.error = err;
 			callback(result);
-		}else{
+		}else if(user){
 			if(user.currentToken == data.token)
 				result.success = true;
 			callback(result);
