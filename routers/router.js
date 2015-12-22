@@ -6,7 +6,7 @@ var userDb = require('../database/user-db');
 router.use(bodyParser.json());
 
 router.route('/').get(function(req,res) {
-
+	res.status(404);
 }).post(function(req,res) {
 
 });
