@@ -87,7 +87,8 @@ module.exports.logout = function(data,callback) {
 module.exports.checkToken = function(data,callback) {
 	var result = {
 		success:false,
-		error:null
+		error:null,
+		token:null
 	};
 
 	if(data.token == null){
@@ -105,10 +106,17 @@ module.exports.checkToken = function(data,callback) {
 		if(err){
 			result.error = err;
 			callback(result);
+			return;
 		}else if(user){
-			if(user.currentToken == data.token)
+			if(user.currentToken == data.token){
 				result.success = true;
+				result.token = user.currentToken;
+			}else{
+				result.error = "Token mismatch";
+				result.token = user.currentToken;
+			}
 			callback(result);
+			return;
 		}
 	});
 };
