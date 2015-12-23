@@ -54,8 +54,7 @@ module.exports.login = function(data,callback) {
 				};
 				result.token = jwtHandler.signPayload(payload);
 				result.success = true;
-				user.currentToken = result.token;
-				user.update();
+				User.update({_id:payload.id},{$set: {currentToken:result.token}});
 			}
 		}
 		callback(result);
