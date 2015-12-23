@@ -52,7 +52,7 @@ router.post('/logout',function(req,res){
 
 router.post('/checktoken',function(req,res) {
 	var data = {
-		"token":req.body.token
+		token:req.body.token
 	}
 	userDb.checkToken(data,function(result) {
 		res.json(result);
