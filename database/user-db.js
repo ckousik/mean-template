@@ -109,6 +109,7 @@ module.exports.checkToken = function(data,callback) {
 			callback(result);
 			return;
 		}else if(user){
+			console.log(JSON.stringify(user));
 			console.log("incoming token : "+data.token);
 			console.log("user token : "+user.currentToken);
 			if(user.currentToken == data.token){
