@@ -9,13 +9,16 @@ var UserSchema = new Schema({
 	username:{type:String , index:{unique:true}, required:true, dropDups:true},
 	pass:{type:String,required:true},
 	salt:String,
+	currentToken:{
+		type:String,
+		default:" "
+	},
 	created_at: {
 		type:Date,
 		required:true,
-		default: Date.now
-	},
-	currentToken:String
-})
+		default: Date.now,
+	}
+});
 
 UserSchema.pre('save',function(next) {
 	var hashSaltPair = hashGen.getHashed(this.pass);
