@@ -52,9 +52,9 @@ module.exports.login = function(data,callback) {
 					iss: "mysite",
 					permissions: ["read","post"]
 				};
-				user.currentToken = jwtHandler.signPayload(payload);
-				result.token = user.currentToken;
+				result.token = jwtHandler.signPayload(payload);
 				result.success = true;
+				user.update({currentToken:result.token});
 			}
 		}
 		callback(result);
