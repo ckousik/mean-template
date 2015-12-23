@@ -110,11 +110,10 @@ module.exports.checkToken = function(data,callback) {
 		}else if(user){
 			if(user.currentToken == data.token){
 				result.success = true;
-				result.token = user.currentToken;
 			}else{
 				result.error = "Token mismatch";
-				result.token = user.currentToken;
 			}
+			result.token = user.currentToken;
 			callback(result);
 			return;
 		}
