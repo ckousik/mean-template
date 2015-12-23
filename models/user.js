@@ -14,9 +14,7 @@ var UserSchema = new Schema({
 		required:true,
 		default: Date.now
 	},
-	currentToken:{
-		type:String
-	}
+	currentToken:String
 })
 
 UserSchema.pre('save',function(next) {
