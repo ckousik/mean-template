@@ -29,7 +29,7 @@ UserSchema.pre('save',function(next) {
 		var hashSaltPair = hashGen.getHashed(this.pass);
 		this.pass = hashSaltPair.hash;
 		this.salt = hashSaltPair.salt;
-		this.regsterEnabled = false;
+		this.registerEnabled = false;
 	}
 	next();
 });
