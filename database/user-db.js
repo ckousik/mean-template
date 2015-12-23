@@ -17,7 +17,8 @@ module.exports.register = function (data,callback) {
 		username:data.username,
 		email:data.email,
 		pass:data.pass,
-		displayName:data.displayName
+		displayName:data.displayName,
+		registerEnabled:true
 	});
 	//console.log('new user created');
 	newUser.save(function(err){
@@ -54,7 +55,8 @@ module.exports.login = function(data,callback) {
 				};
 				result.token = jwtHandler.signPayload(payload);
 				result.success = true;
-				User.update({_id:payload.id},{$set: {currentToken:result.token}});
+				user.currentToken = result.token;
+				user.save();
 			}
 		}
 		callback(result);

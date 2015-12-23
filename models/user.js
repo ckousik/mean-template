@@ -17,13 +17,20 @@ var UserSchema = new Schema({
 		type:Date,
 		required:true,
 		default: Date.now,
+	},
+	registerEnabled:{
+		type:Boolean,
+		default:false
 	}
 });
 
 UserSchema.pre('save',function(next) {
-	var hashSaltPair = hashGen.getHashed(this.pass);
-	this.pass = hashSaltPair.hash;
-	this.salt = hashSaltPair.salt;
+	if(this.registerEnabled == true){
+		var hashSaltPair = hashGen.getHashed(this.pass);
+		this.pass = hashSaltPair.hash;
+		this.salt = hashSaltPair.salt;
+		this.regsterEnabled = false;
+	}
 	next();
 });
 
