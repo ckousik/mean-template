@@ -13,7 +13,7 @@ app.config(function($routeProvider) {
 	$scope.submit = function(){
 		if($scope.username=='' || $scope.password=='')
 			return;
-		$http.post('localhost:3000/login',{"username":$scope.username, "password":$scope.password})
+		$http.post('https://whispering-crag-9669.herokuapp.com/login',{"username":$scope.username, "password":$scope.password})
 		.success(function(data){
 			if(data.success){
 				$cookies.put('token',data.token);
