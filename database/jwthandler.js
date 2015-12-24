@@ -1,5 +1,5 @@
 var jwt = require('jsonwebtoken');
-var secret_key = process.env.SECRET_KEY;
+var secret_key = 'secret';
 
 function getPayload(token){
 	try{

@@ -1,0 +1,30 @@
+{
+  "name": "crowdnews",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Chinmay J Kousik",
+  "license": "ISC",
+  "dependencies": {
+    "angularjs": "0.0.1",
+    "body-parser": "^1.14.1",
+    "express": "^4.13.3",
+    "jsonwebtoken": "^5.4.1",
+    "mongoose": "^4.3.1",
+    "pg": "^4.4.3",
+    "socket.io": "^1.3.7",
+    "uuid": "^2.0.1"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ckousik/crowdnews.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ckousik/crowdnews/issues"
+  },
+  "homepage": "https://github.com/ckousik/crowdnews#readme",
+  "description": ""
+}

@@ -1,14 +1,13 @@
 var mongoose = require('mongoose'),
 	Schema = mongoose.Schema;
 
-var hashGen = require('../helpers/hash');
+var bcrypt = require('bcrypt-nodejs');
 
 var UserSchema = new Schema({
 	displayName: String,
 	email:{type:String , unique:true , required:true, dropDups:true},
 	username:{type:String , index:{unique:true}, required:true, dropDups:true},
-	pass:{type:String,required:true},
-	salt:String,
+	password:{type:String,required:true},
 	currentToken:{
 		type:String,
 		default:" "
@@ -17,29 +16,15 @@ var UserSchema = new Schema({
 		type:Date,
 		required:true,
 		default: Date.now,
-	},
-	registerEnabled:{
-		type:Boolean,
-		default:false
 	}
 });
 
-UserSchema.pre('save',function(next) {
-	if(this.registerEnabled == true){
-		var hashSaltPair = hashGen.getHashed(this.pass);
-		this.pass = hashSaltPair.hash;
-		this.salt = hashSaltPair.salt;
-		this.registerEnabled = false;
-	}
-	next();
-});
+UserSchema.methods.generateHash = function(password) {
+	return bcrypt.hashSync(password,bcrypt.genSaltSync(10),null);
+};
 
-UserSchema.method.comparePass = function(password,callback){
-	if(this.pass == hashGen.digest(password+this.salt)){
-		callback(true);
-	}else{
-		callback(false);
-	}
-}
+UserSchema.methods.comparePassword = function(password) {
+	return bcrypt.compareSync(password,this.password);
+};
 
 module.exports = mongoose.model('User',UserSchema);

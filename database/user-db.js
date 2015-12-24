@@ -16,10 +16,11 @@ module.exports.register = function (data,callback) {
 	var newUser = new User({
 		username:data.username,
 		email:data.email,
-		pass:data.pass,
-		displayName:data.displayName,
-		registerEnabled:true
+		password:data.password,
+		displayName:data.displayName
 	});
+
+	newUser.password = newUser.generateHash(data.password);
 	//console.log('new user created');
 	newUser.save(function(err){
 		if(err){
@@ -29,7 +30,7 @@ module.exports.register = function (data,callback) {
 			result.success = true;
 		}
 		//console.log('new user saved');
-		callback(result);
+		return callback(result);
 	});
 
 };
@@ -44,10 +45,16 @@ module.exports.login = function(data,callback) {
 	User.findOne({username:data.username},function(err,user){
 		if(err){
 			result.error = err;
-		}else if(user){
-			//console.log('user found: '+JSON.stringify(user));
-			var hash = hashGen.digest(data.pass+user.salt);
-			if(user.pass == hash){
+			return callback(result);
+		}
+
+		if(!user){
+			result.error = "User not found";
+			return callback(result);
+		}
+
+		if(user){
+			if(user.comparePassword(data.password)){
 				var payload = {
 					id: user._id,
 					iss: "mysite",
@@ -59,7 +66,7 @@ module.exports.login = function(data,callback) {
 				user.save();
 			}
 		}
-		callback(result);
+		return callback(result);
 	});
 };
 

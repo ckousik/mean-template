@@ -1,7 +1,7 @@
 {
-  "name": "template",
+  "name": "slugplug",
   "version": "1.0.0",
-  "description": "basic template for MEAN stack apps",
+  "description": "slug and plug app",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -9,6 +9,7 @@
   "author": "Chinmay J Kousik",
   "license": "ISC",
   "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.14.2",
     "express": "^4.13.3",
     "jsonwebtoken": "^5.4.1",
