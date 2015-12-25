@@ -135,3 +135,45 @@ module.exports.checkToken = function(data,callback) {
 		}
 	});
 };
+
+module.exports.loginAdmin = function(data,callback) {
+	var result = {
+		success:false,
+		error:null,
+		token:null,
+		displayName:null
+	}
+
+	User.findOne({username:data.username},function(err,user){
+		if(err){
+			result.error = err;
+			return callback(result);
+		}
+
+		if(!user){
+			result.error = "User not found";
+			return callback(result);
+		}
+
+		if(user){
+			if(user.admin == false){
+				result.error = "Admin privileges required";
+				return callback(result);
+			}
+
+			if(user.comparePassword(data.password)){
+				var payload = {
+					id: user._id,
+					iss: "slug.io",
+					admin: user.admin
+				};
+				result.token = jwtHandler.signPayload(payload);
+				result.success = true;
+				result.displayName= user.displayName;
+				user.currentToken = result.token;
+				user.save();
+			}
+		}
+		return callback(result);
+	});
+};
