@@ -87,6 +87,7 @@ module.exports.registerUser = function(data,callback){
 			return callback(result);
 		}
 		event.membersRegistered.push(payload.id);
+		event.registeredCount++;
 		event.save(function(err) {
 			if(err){
 				result.error = err;
