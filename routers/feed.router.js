@@ -35,7 +35,7 @@ router.post('/registeruser',function(req,res) {
 	}
 
 	eventDb.registerUser(data,function(result) {
-		res.json(result);er
+		res.json(result);
 	});
 });
 
