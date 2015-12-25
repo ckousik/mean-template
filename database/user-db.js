@@ -39,7 +39,8 @@ module.exports.login = function(data,callback) {
 	var result = {
 		success:false,
 		error:null,
-		token:null
+		token:null,
+		displayName:null
 	}
 
 	User.findOne({username:data.username},function(err,user){
@@ -57,11 +58,12 @@ module.exports.login = function(data,callback) {
 			if(user.comparePassword(data.password)){
 				var payload = {
 					id: user._id,
-					iss: "mysite",
+					iss: "slug.io",
 					permissions: ["read","post"]
 				};
 				result.token = jwtHandler.signPayload(payload);
 				result.success = true;
+				result.displayName= user.displayName;
 				user.currentToken = result.token;
 				user.save();
 			}
