@@ -27,9 +27,9 @@ module.exports.register = function (data,callback) {
 			result.error = err;
 			console.log(err);
 		}else{
-			result.success = true;
+			result.success=true
 		}
-		//console.log('new user saved');
+
 		return callback(result);
 	});
 
@@ -59,7 +59,7 @@ module.exports.login = function(data,callback) {
 				var payload = {
 					id: user._id,
 					iss: "slug.io",
-					permissions: ["read","post"]
+					admin: user.admin
 				};
 				result.token = jwtHandler.signPayload(payload);
 				result.success = true;

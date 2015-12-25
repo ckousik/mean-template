@@ -17,10 +17,10 @@ app.config(function($routeProvider) {
 		$http.post('https://whispering-crag-9669.herokuapp.com/login',{"username":$scope.username, "password":$scope.password})
 		.success(function(data){
 			if(data.success){
-				
 				$cookies.put('token',data.token);
 				$cookies.put('displayName',data.displayName);
 				$location.path('/dash-feed');
+				//alert($cookies.get('displayName'));
 			}else{
 				alert('Unsuccessful login')
 			}
@@ -29,5 +29,8 @@ app.config(function($routeProvider) {
 }])
 
 .controller('dashFeedCtrl',['$scope','$cookies','$location','$http',function($scope,$cookies,$location,$http){
-	this.displayName = $cookies.get('displayName');
+	$scope.displayName = $cookies.get('displayName');
+	$scope.getFeed = function(){
+		var token = $cookies.get('token');
+	}
 }]);
